@@ -98,6 +98,6 @@ class GameScene: SKScene {
     // UPDATE TIMER LABEL
     @objc func updateClock() {
         self.count += 1
-        self.clock.text = (String)self.count
+        self.clock.text = String(self.count)
     }
 }
