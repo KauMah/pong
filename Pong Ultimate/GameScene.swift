@@ -30,10 +30,15 @@ class GameScene: SKScene {
     var clock = SKLabelNode()
 
     // Creating all the variables I need in the game scene.
+    
+    // game started boolean
+    var isGameStarted = false;
 
     override func didMove(to view: SKView) {
 
         playButton = self.childNode(withName: "playButton") as! SKSpriteNode
+        playButton.isUserInteractionEnabled = true
+        
         ball = self.childNode(withName: "ball") as! SKSpriteNode
         player = self.childNode(withName: "player") as! SKSpriteNode
         computer = self.childNode(withName: "computer") as! SKSpriteNode
@@ -47,15 +52,21 @@ class GameScene: SKScene {
         self.physicsBody = border
 
         // CONTAINS TIMER
-        startGame()
 
     }
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-
-        for touch in touches {
-            let location = touch.location(in: self)
-            player.run(SKAction.moveTo(x: location.x, duration: 0.1))
+        let touch:UITouch = touches.first! as UITouch
+        let positionInScene = touch.location(in: self)
+        let touchedNode = self.atPoint(positionInScene)
+        if let name = touchedNode.name {
+            if name == "playText" && !isGa  meStarted {
+                startGame()
+            }
         }
+//        for touch in touches {
+//            let location = touch.location(in: self)
+//            player.run(SKAction.moveTo(x: location.x, duration: 0.1))
+//        }
     }
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         for touch in touches {
@@ -86,7 +97,7 @@ class GameScene: SKScene {
     }
 
     func startGame() {
-
+        isGameStarted = true
         let force = SKAction.applyForce(CGVector(dx: 1500, dy: 1500), duration: 0.1)
         ball.run(force)
 
