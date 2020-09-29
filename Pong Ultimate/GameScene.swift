@@ -59,7 +59,7 @@ class GameScene: SKScene {
         let positionInScene = touch.location(in: self)
         let touchedNode = self.atPoint(positionInScene)
         if let name = touchedNode.name {
-            if name == "playText" && !isGa  meStarted {
+            if name == "playText" && !isGameStarted {
                 startGame()
             }
         }
